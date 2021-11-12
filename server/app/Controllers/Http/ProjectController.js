@@ -47,11 +47,29 @@ class ProjectController {
         //promjeni datum ažuriranja
         project.updated_at = new Date();
         //nemoj obrisati iz baze već stavi status u NEAKTIVNO
-        project.is_active = 0;
+        project.merge({is_active : 0});
+        //project.is_active = 0;
         //odradi update (pošto postoji već u bazi može se koristiti i save())
         await project.save();
         //vrati 'obrisani' projekt
         return project;
+    }
+
+    async update({ auth, request, params }){
+        //dohvati korisnika
+        const user = await auth.getUser();
+        //dohvati id projekta koji želimo updateati
+        const { id } = params;
+        //pronađi traženi projekt
+        const project = await Project.find(id);
+        //ako je projekt nije za korisnika koji šalje zahtjev vrati UNAUTHORIZED
+        AuthorizationService.verifyPermission(project, user);
+        //nemoj obrisati iz baze već stavi status u NEAKTIVNO
+        project.merge(request.only('title'));
+        //promjeni datum ažuriranja
+        await project.save();
+        return project;
+
     }
 }
 

@@ -12,7 +12,7 @@ class TaskController {
         const { id } = params;
         const project = await Project.find(id);
         AuthorizationService.verifyPermission(project, user);
-        return await project.tasks().fetch();
+        return await project.tasks().where('is_active',1).fetch();
 
     }
 
@@ -36,6 +36,49 @@ class TaskController {
         await project.tasks().save(task);
         //vratimo task
         return task;
+    }
+
+    async destroy({ auth, request, params }){
+        //dohvati korisnika
+        const user = await auth.getUser();
+        //dohvati id projekta koji želimo obrisati
+        const { id } = params;
+        //pronađi traženi projekt
+        const task = await Task.find(id);
+        //ako je projekt nije za korisnika koji šalje zahtjev vrati UNAUTHORIZED
+        const project = await task.project().fetch();
+        AuthorizationService.verifyPermission(project, user);
+        //nemoj obrisati iz baze već stavi status u NEAKTIVNO
+        task.merge({is_active : 0});
+        //odradi update (pošto postoji već u bazi može se koristiti i save())
+        await task.save();
+        //vrati 'obrisani' projekt
+        return task;
+    }
+
+    async update({ auth, request, params }){
+        //dohvati korisnika
+        const user = await auth.getUser();
+        //dohvati id projekta koji želimo updateati
+        const { id } = params;
+        //pronađi traženi projekt
+        const task = await Task.find(id);
+        //ako je projekt nije za korisnika koji šalje zahtjev vrati UNAUTHORIZED
+        const project = await task.project().fetch();
+        console.log(project);
+        console.log(user);
+        console.log(task);
+        AuthorizationService.verifyPermission(project, user);
+        //odradi protrebne promjene
+        task.merge(request.only([
+            'description',
+            'completed',
+            'is_active'
+        ]));
+        //promjeni datum ažuriranja
+        await task.save();
+        return task;
+
     }
 }
 

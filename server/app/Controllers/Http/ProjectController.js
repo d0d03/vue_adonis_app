@@ -11,7 +11,7 @@ class ProjectController {
         //ispišemo id
         //console.log(user.id);
         //dohvatimo i vratimo sve njegove projekte koji su aktivni
-        const projects = await Project.query().where('is_active',1).fetch()
+        const projects = user.projects().where('is_active',1).fetch();
         return projects;
     }
 
@@ -44,11 +44,8 @@ class ProjectController {
         const project = await Project.find(id);
         //ako je projekt nije za korisnika koji šalje zahtjev vrati UNAUTHORIZED
         AuthorizationService.verifyPermission(project, user);
-        //promjeni datum ažuriranja
-        project.updated_at = new Date();
         //nemoj obrisati iz baze već stavi status u NEAKTIVNO
         project.merge({is_active : 0});
-        //project.is_active = 0;
         //odradi update (pošto postoji već u bazi može se koristiti i save())
         await project.save();
         //vrati 'obrisani' projekt
@@ -64,7 +61,7 @@ class ProjectController {
         const project = await Project.find(id);
         //ako je projekt nije za korisnika koji šalje zahtjev vrati UNAUTHORIZED
         AuthorizationService.verifyPermission(project, user);
-        //nemoj obrisati iz baze već stavi status u NEAKTIVNO
+        //odradi protrebne promjene
         project.merge(request.only('title'));
         //promjeni datum ažuriranja
         await project.save();

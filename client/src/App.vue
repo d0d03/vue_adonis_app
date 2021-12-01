@@ -2,20 +2,18 @@
 <v-app>
   <Toolbar/>
   <div id="app">
-      <img alt="Vue logo" src="./assets/logo.png">
-      <router-view/>
+    <router-view/>
   </div>
 </v-app>
 </template>
 
 <script>
-
 import Toolbar from './components/Toolbar.vue'
 
 export default {
   name: 'App',
   components: {
-    Toolbar
+    Toolbar,
   }
 }
 </script>

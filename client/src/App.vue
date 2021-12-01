@@ -1,27 +1,21 @@
 <template>
 <v-app>
-  <v-app-bar color="green" dark fixed>
-    <v-app-bar-nav-icon></v-app-bar-nav-icon>
-    <v-app-bar-title>VUE TODO</v-app-bar-title>
-    <v-spacer></v-spacer>
-    <v-app-bar-items class="hidden-sm-and-down">
-      <v-btn plain>Link one</v-btn>
-    </v-app-bar-items>
-  </v-app-bar>
+  <Toolbar/>
   <div id="app">
       <img alt="Vue logo" src="./assets/logo.png">
-      <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <router-view/>
   </div>
 </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import Toolbar from './components/Toolbar.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Toolbar
   }
 }
 </script>

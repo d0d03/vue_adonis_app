@@ -22,6 +22,10 @@ export default{
                 commit('setRegisterError', 'An error has ocured trying to create your accoutn');
             });
         },
+        logout({ commit }){
+            commit('setToken',null);
+            router.push('/login')
+        },
     },
     getters:{
         isLoggedIn(state){

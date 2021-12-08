@@ -1,22 +1,44 @@
 <template>
     <Panel title="Projects">
+        <div
+            v-for="project in projects"
+            :key="project.id"
+        >
+            {{project.title}}
+        </div>
         <v-layout row wrap>
-            <v-felx xs8>
+            <v-flex xs7>
                 <v-text-field
                     placeholder="My project name..."
+                    @input="setNewProjectName"
+                    :value="newProjectName"
                 ></v-text-field>
-            </v-felx>
-            <v-felx xs4>
-                <v-btn dark class="mt-4" color="green">
+            </v-flex>
+            <v-flex xs5>
+                <v-btn dark class="mt-4" color="green" @click="createProject">
                     <v-icon class="mr-2">add_circle </v-icon>
                     Create</v-btn>
-            </v-felx>
+            </v-flex>
         </v-layout>
     </Panel>
 </template>
 
 <script>
+import {mapMutations, mapState, mapActions} from 'vuex';
 export default {
-    
+    computed:{
+        ...mapState('projects',[
+            'newProjectName',
+            'projects',
+        ]),
+    },
+    methods:{
+        ...mapMutations('projects',[
+            'setNewProjectName',
+        ]),
+        ...mapActions('projects',[
+            'createProject',
+        ]),
+    },
 }
 </script>

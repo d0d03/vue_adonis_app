@@ -15,10 +15,23 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import ProjectsComponent from '../components/ProjectsComponent.vue';
+import {router} from '../router';
+
 export default {
     components:{
         ProjectsComponent
+    },
+    mounted(){
+        if(!this.token){
+            return router.push('/login');
+        }
+    },
+    computed:{
+        ...mapGetters('authentication',[
+            'isLoggedIn',
+        ]),
     },
 };
 </script>

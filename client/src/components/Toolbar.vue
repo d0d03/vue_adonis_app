@@ -13,7 +13,7 @@
                 <v-icon class="pr-2">account_box</v-icon>
                 Register
             </v-btn>
-            <v-btn plain v-if="!isLoggedIn">
+            <v-btn plain v-if="!isLoggedIn" to="/login">
                 <v-icon class="pr-2">fingerprint</v-icon>
                 Login
             </v-btn>

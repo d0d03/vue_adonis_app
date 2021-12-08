@@ -1,10 +1,18 @@
 <template>
-    <Panel title="Projects">
+    <Panel title="Projects" >
         <div
+        class="project mb-2"
             v-for="project in projects"
             :key="project.id"
         >
-            {{project.title}}
+        <v-layout row wrap>
+            <v-flex xs9 class="text-xs-left">
+                {{project.title}}
+            </v-flex>
+            <v-flex xs3>
+                <v-icon>edit</v-icon>
+            </v-flex>
+        </v-layout>
         </div>
         <v-layout row wrap>
             <v-flex xs7>
@@ -26,6 +34,10 @@
 <script>
 import {mapMutations, mapState, mapActions} from 'vuex';
 export default {
+
+    mounted(){
+        this.fetchProjects();
+    },
     computed:{
         ...mapState('projects',[
             'newProjectName',
@@ -38,7 +50,14 @@ export default {
         ]),
         ...mapActions('projects',[
             'createProject',
+            'fetchProjects',
         ]),
     },
 }
 </script>
+
+<style>
+.project{
+    font: size 24px;
+}
+</style>

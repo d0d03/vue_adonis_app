@@ -1,31 +1,46 @@
 <template>
     <Panel title="Projects" >
         <div
-        class="project mb-2"
+        class="project mt-2"
             v-for="project in projects"
             :key="project.id"
         >
         <v-layout row wrap>
-            <v-flex xs9 class="text-xs-left">
-                {{project.title}}
+            <v-flex xs9 class="text-left">
+                <span v-if="!project.isEditMode">
+                    {{project.title}}
+                </span>
+                <v-text-field 
+                    autofocus
+                    v-if="project.isEditMode"
+                    :value="project.title"
+                    @keyup.enter="saveProject(project)"
+                    @input="setProjectTitle({project, title:$event})">
+                </v-text-field>
             </v-flex>
             <v-flex xs3>
-                <v-icon>edit</v-icon>
+                <v-icon @click="setEditMode(project)" v-if="!project.isEditMode">
+                    edit
+                </v-icon>
+                <v-icon @click="saveProject(project)" v-if="project.isEditMode">
+                    check
+                </v-icon>
             </v-flex>
         </v-layout>
         </div>
-        <v-layout row wrap>
-            <v-flex xs7>
+        <v-layout row wrap class="mt-4">
+            <v-flex xs8>
                 <v-text-field
                     placeholder="My project name..."
                     @input="setNewProjectName"
                     :value="newProjectName"
                 ></v-text-field>
             </v-flex>
-            <v-flex xs5>
+            <v-flex xs4>
                 <v-btn dark class="mt-4" color="green" @click="createProject">
-                    <v-icon class="mr-2">add_circle </v-icon>
-                    Create</v-btn>
+                    <v-icon>add_circle</v-icon>
+                    Create
+                </v-btn>
             </v-flex>
         </v-layout>
     </Panel>
@@ -47,10 +62,14 @@ export default {
     methods:{
         ...mapMutations('projects',[
             'setNewProjectName',
+            'setEditMode',
+            'unsetEditMode',
+            'setProjectTitle',
         ]),
         ...mapActions('projects',[
             'createProject',
             'fetchProjects',
+            'saveProject',
         ]),
     },
 }
@@ -58,6 +77,14 @@ export default {
 
 <style>
 .project{
-    font: size 24px;
+    font-size: 24px;
+    padding: 10px;
+}
+
+.icon{
+    cursor: pointer;
+}
+.icon:hover{
+    color:#333;
 }
 </style>

@@ -21,10 +21,6 @@
                 <v-icon class="pr-2">exit_to_app</v-icon>
                 Logout
             </v-btn>
-            <v-btn plain>
-                <v-icon class="pr-2">ondemand_video</v-icon>
-                How this was made
-            </v-btn>
         </v-toolbar-items>
     </v-app-bar>
 </template>

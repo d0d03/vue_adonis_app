@@ -1,7 +1,6 @@
-// import router from '../router';
 import Vue from 'vue';
+
 import HTTP from '../http';
-//import Vue from 'vue';
 
 export default{
     namespaced:true,
@@ -62,6 +61,9 @@ export default{
         },
         removeTask(state, task){
             state.tasks.splice(state.tasks.indexOf(task), 1);
-        }
+        },
+        toggleCompleted(state, task){
+            task.completed = !task.completed;
+        },
     },
 };

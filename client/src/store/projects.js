@@ -1,6 +1,6 @@
-// import router from '../router';
-import HTTP from '../http';
 import Vue from 'vue';
+
+import HTTP from '../http';
 
 export default{
     namespaced:true,

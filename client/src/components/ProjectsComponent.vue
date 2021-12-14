@@ -25,6 +25,9 @@
                 <v-icon @click="saveProject(project)" v-if="project.isEditMode">
                     check
                 </v-icon>
+                <v-icon @click="deleteProject(project)" class="ml-2 danger" color="red">
+                    delete
+                </v-icon>
             </v-flex>
         </v-layout>
         </div>
@@ -65,11 +68,13 @@ export default {
             'setEditMode',
             'unsetEditMode',
             'setProjectTitle',
+            'removeProject',
         ]),
         ...mapActions('projects',[
             'createProject',
             'fetchProjects',
             'saveProject',
+            'deleteProject',
         ]),
     },
 }
@@ -84,7 +89,10 @@ export default {
 .icon{
     cursor: pointer;
 }
-.icon:hover{
+
+.v-icon:hover {
     color:#333;
 }
+
+
 </style>

@@ -29,6 +29,22 @@ export default{
                 commit('unsetEditMode', project);
             });
         },
+
+        //SAMOSTALNO RJEŠENJE
+        // deleteProject({commit},project){
+        //     return HTTP().delete(`/projects/${project.id}`,project)
+        //     .then(({data})=>{
+        //         commit('removeProject',data);
+        //     });
+        // },
+        
+        //TUTORIAL
+        deleteProject({commit},project){
+            return HTTP().delete(`/projects/${project.id}`)
+            .then(()=>{
+                commit('removeProject',project);
+            });
+        },
     },
     getters:{
 
@@ -51,7 +67,15 @@ export default{
         },
         unsetEditMode(state, project){
             Vue.set(project, 'isEditMode',false);
-        }
+        },
+        removeProject(state, project){
 
+            //SAMOSTALNO RJEŠENJE
+            //const temp = state.projects.filter((oldProject) => oldProject.id !== project.id);
+            //state.projects = temp;
+
+            //TUTORIAL
+            state.projects.splice(state.projects.indexOf(project),1);
+        },
     },
 };

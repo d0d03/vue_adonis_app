@@ -9,6 +9,7 @@
                     placeholder="Email"
                     :value="loginEmail"
                     @input="setLoginEmail"
+                    @keyup.enter="login"
                 />
 
                 <v-text-field
@@ -18,6 +19,7 @@
                     autocomplete="new-password"
                     :value="loginPassword"
                     @input="setLoginPassword"
+                    @keyup.enter="login"
                 />
 
                 <v-alert

@@ -36,6 +36,7 @@
                 <v-text-field
                     placeholder="My project name..."
                     @input="setNewProjectName"
+                    @keyup.enter="createProject"
                     :value="newProjectName"
                 ></v-text-field>
             </v-flex>

@@ -12,6 +12,7 @@
                 @onDelete="deleteProject(project)"
                 @onInput="setProjectTitle({project, title:$event})"
                 @onEdit="setEditMode(project)"
+                @onClick="projectClicked(project)"
             />
          </div>
         <CreateRecord 
@@ -44,18 +45,24 @@ export default {
         ]),
     },
     methods:{
+        projectClicked(project){
+           this.setCurrentProject(project);
+           this.fetchTasksForProject(project); 
+        },
         ...mapMutations('projects',[
             'setNewProjectName',
             'setEditMode',
-            'unsetEditMode',
             'setProjectTitle',
-            'removeProject',
+            'setCurrentProject',
         ]),
         ...mapActions('projects',[
             'createProject',
             'fetchProjects',
             'saveProject',
             'deleteProject',
+        ]),
+        ...mapActions('tasks',[
+            'fetchTasksForProject',
         ]),
     },
 }

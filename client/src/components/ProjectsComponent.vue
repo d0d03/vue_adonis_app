@@ -6,6 +6,7 @@
             :key="project.id"
         >
             <EditableRecord
+                :style="highlighCurrent(project, currentProject)"
                 :isEditMode="project.isEditMode"
                 :title="project.title"
                 @onSave="saveProject(project)"
@@ -42,6 +43,7 @@ export default {
         ...mapState('projects',[
             'newProjectName',
             'projects',
+            'currentProject',
         ]),
     },
     methods:{
@@ -64,6 +66,12 @@ export default {
         ...mapActions('tasks',[
             'fetchTasksForProject',
         ]),
+        highlighCurrent(project, currentProject){
+           if(project.id === currentProject.id){
+               return {boxShadow: "0px 0px 4px 3px #157800"};
+           }
+           return 'none';
+        }
     },
 }
 </script>
@@ -81,6 +89,5 @@ export default {
 .v-icon:hover {
     color:#333;
 }
-
 
 </style>

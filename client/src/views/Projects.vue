@@ -9,6 +9,23 @@
                  <TasksComponent></TasksComponent>
             </v-flex>
         </v-layout>
+        <br/>
+        <Panel title="Project summary">
+            <v-layout>
+                <v-flex xs6>
+                    <p class="pt-2">Project status: </p>
+                    <p class="pt-2">Date of creation: </p>
+                    <p> Last change: </p>
+                </v-flex> 
+                <v-flex xs6>
+                        <h1>
+                            {{currentProject.is_active ? "ACTIVE" : "INACTIVE"}}
+                        </h1>
+                        <h1> {{currentProject.created_at}}</h1>
+                        <h1> {{currentProject.updated_at}}</h1>
+                </v-flex>  
+            </v-layout>
+        </Panel>
     </v-container>
 </template>
 

@@ -9,7 +9,6 @@
                 :isEditMode="task.isEditMode"
                 :title="task.description"
                 @onInput="setTaskDescription({ task, description:$event })"
-                @onClick="taskClicked(task)"
                 @onEdit="setEditMode(task)"
                 @onSave="saveTask(task)"
                 @onDelete="deleteTask(task)"

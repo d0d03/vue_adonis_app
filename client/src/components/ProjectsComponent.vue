@@ -6,7 +6,7 @@
             :key="project.id"
         >
             <EditableRecord
-                :style="highlighCurrent(project, currentProject)"
+                :class="highlighCurrent(project, currentProject)"
                 :isEditMode="project.isEditMode"
                 :title="project.title"
                 @onSave="saveProject(project)"
@@ -14,6 +14,7 @@
                 @onInput="setProjectTitle({project, title:$event})"
                 @onEdit="setEditMode(project)"
                 @onClick="projectClicked(project)"
+                
             />
          </div>
         <CreateRecord 
@@ -68,9 +69,9 @@ export default {
         ]),
         highlighCurrent(project, currentProject){
            if(project.id === currentProject.id){
-               return {boxShadow: "0px 0px 4px 3px #157800"};
+               return "currentlySelected";
            }
-           return 'none';
+           return "";
         }
     },
 }
@@ -80,6 +81,7 @@ export default {
 .project{
     font-size: 24px;
     padding: 10px;
+    cursor: pointer;
 }
 
 .icon{
@@ -88,6 +90,10 @@ export default {
 
 .v-icon:hover {
     color:#333;
+}
+
+.currentlySelected{
+    box-shadow: 0px 0px 4px 3px #157800;
 }
 
 </style>

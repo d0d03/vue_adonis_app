@@ -26,8 +26,9 @@ export default{
         },
         saveProject({ commit }, project){
             return HTTP().patch(`/projects/${project.id}`, project)
-            .then(() => {
+            .then(({data}) => {
                 commit('unsetEditMode', project);
+                commit('updateProject',data);
             });
         },
 
@@ -81,5 +82,14 @@ export default{
             //TUTORIAL
             state.projects.splice(state.projects.indexOf(project),1);
         },
+        updateProject(state, newValues){
+            state.projects.map((project)=>{
+                if(project.id === newValues.id){
+                    project.updated_at=newValues.updated_at;
+                }
+            })
+        },
     },
 };
+
+//TODO: DODATI PROVJERE ZA EMPTY 

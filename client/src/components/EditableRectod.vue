@@ -1,5 +1,5 @@
 <template>
-        <v-layout row wrap class="record">
+        <v-layout row wrap>
             <v-flex xs9 class="text-left pl-4">
                 <slot></slot>
                 <span
